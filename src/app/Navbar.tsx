@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const links = [
@@ -12,6 +13,7 @@ const links = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const closeMenu = () => setIsOpen(false);
 
@@ -42,7 +44,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="nav-link"
+                className={`nav-link${pathname === link.href ? " active" : ""}`}
                 onClick={closeMenu}
               >
                 {link.label}
@@ -51,7 +53,7 @@ export default function Navbar() {
 
             <Link
               href="/kontak"
-              className="nav-link nav-contact"
+              className={`nav-link nav-contact${pathname === "/kontak" ? " active" : ""}`}
               onClick={closeMenu}
             >
               Contact

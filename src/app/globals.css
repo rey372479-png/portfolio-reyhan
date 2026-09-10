@@ -124,6 +124,18 @@ a {
   transform: scaleX(1);
 }
 
+.nav-link.active {
+  background: white;
+  color: black !important;
+  border-color: white;
+  border-radius: 999px;
+  transform: none;
+}
+
+.nav-link.active::after {
+  display: none;
+}
+
 .nav-contact {
   border: 1px solid var(--border-strong);
   border-radius: 999px;
@@ -1195,6 +1207,14 @@ a {
   .nav-contact {
     border: none;
     border-radius: 0;
+  }
+
+  .nav-link.active,
+  .nav-contact.active {
+    width: fit-content;
+    padding: 0.6rem 0.9rem !important;
+    border: 1px solid white;
+    border-radius: 999px;
   }
 
   .hero-title {
