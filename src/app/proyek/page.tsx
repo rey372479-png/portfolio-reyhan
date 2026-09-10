@@ -1,6 +1,20 @@
 import Link from "next/link";
+import CardProyek from "@/components/CardProyek";
+import { daftarProyek } from "@/data/proyek";
 
-export default function ProyekPage() {
+interface ProyekPageProps {
+  searchParams: Promise<{ category?: string }>;
+}
+
+export default async function ProyekPage({ searchParams }: ProyekPageProps) {
+  const { category } = await searchParams;
+  const categories = ["Semua", "Web", "Mobile", "Design"];
+  const filteredProjects = category
+    ? daftarProyek.filter(
+        (proyek) => proyek.kategori.toLowerCase() === category.toLowerCase(),
+      )
+    : daftarProyek;
+
   return (
     <main className="page">
       <div className="container">
@@ -17,130 +31,39 @@ export default function ProyekPage() {
           web development dan UI design.
         </p>
 
-        <div className="projects-grid">
-          {/* PROJECT 01 */}
-          <div className="project-card">
-            <span>01</span>
+        <div className="project-filters" aria-label="Filter kategori proyek">
+          {categories.map((item) => {
+            const isAll = item === "Semua";
+            const href = isAll
+              ? "/proyek"
+              : `/proyek?category=${item.toLowerCase()}`;
+            const isActive = isAll
+              ? !category
+              : category?.toLowerCase() === item.toLowerCase();
 
-            <h3>Manajemen Siswa</h3>
-
-            <p>
-              Website untuk mengelola dan menampilkan data siswa
-              secara lebih terstruktur.
-            </p>
-
-            <div className="project-tag">
-              WEB DEVELOPMENT
-            </div>
-          </div>
-
-          {/* PROJECT 02 */}
-          <div className="project-card">
-            <span>02</span>
-
-            <h3>Manajemen Magang</h3>
-
-            <p>
-              Sistem untuk membantu pengelolaan data dan kegiatan
-              siswa selama proses magang.
-            </p>
-
-            <div className="project-tag">
-              WEB DEVELOPMENT
-            </div>
-          </div>
-
-          {/* PROJECT 03 */}
-          <div className="project-card">
-            <span>03</span>
-
-            <h3>NextJS V2</h3>
-
-            <p>
-              Project website menggunakan Next.js sebagai
-              pengembangan dari project sebelumnya.
-            </p>
-
-            <div className="project-tag">
-              NEXT.JS
-            </div>
-          </div>
-
-          {/* PROJECT 04 - MY APP */}
-          <div className="project-card">
-            <span>04</span>
-
-            <h3>My App</h3>
-
-            <p>
-              Project aplikasi yang saya kerjakan sebagai bagian
-              dari pembelajaran dan pengembangan kemampuan saya.
-            </p>
-
-            <a
-              href="https://myapp-reyhan-purnomo-putra1-c1larj6je-rr-7229.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-link"
-            >
-              Open My App ↗
-            </a>
-
-            <div className="project-tag">
-              WEB APPLICATION
-            </div>
-          </div>
-
-          {/* PROJECT 05 - FIGMA MOBILE */}
-          <div className="project-card">
-            <span>05</span>
-
-            <h3>Mobile UI Design</h3>
-
-            <p>
-              Project desain interface aplikasi mobile yang dibuat
-              menggunakan Figma.
-            </p>
-
-            <a
-              href="https://swore-raven-74257261.figma.site/#/mobile"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-link"
-            >
-              View Mobile Design ↗
-            </a>
-
-            <div className="project-tag">
-              FIGMA / MOBILE
-            </div>
-          </div>
-
-          {/* PROJECT 06 - FIGMA WEB */}
-          <div className="project-card">
-            <span>06</span>
-
-            <h3>Web UI Design</h3>
-
-            <p>
-              Project desain interface website yang dibuat dengan
-              memperhatikan struktur dan tampilan pengguna.
-            </p>
-
-            <a
-              href="https://swore-raven-74257261.figma.site/#/web"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-link"
-            >
-              View Web Design ↗
-            </a>
-
-            <div className="project-tag">
-              FIGMA / WEB
-            </div>
-          </div>
+            return (
+              <Link
+                key={item}
+                href={href}
+                className={`project-filter${isActive ? " active" : ""}`}
+              >
+                {item}
+              </Link>
+            );
+          })}
         </div>
+
+        <div className="projects-grid">
+          {filteredProjects.map((proyek) => (
+            <CardProyek key={proyek.id} proyek={proyek} />
+          ))}
+        </div>
+
+        {filteredProjects.length === 0 ? (
+          <p className="empty-projects">
+            Belum ada project dalam kategori ini.
+          </p>
+        ) : null}
 
         <Link href="/kontak" className="minimal-link page-next-link">
           Hubungi Saya <span>→</span>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CounterApresiasi from "@/components/CounterApresiasi";
 
 export default function TentangPage() {
   return (
@@ -94,6 +95,16 @@ export default function TentangPage() {
               Explore My Skills →
             </Link>
           </div>
+        </div>
+
+        <div className="appreciation-panel">
+          <div>
+            <p className="section-label">SUPPORT MY WORK</p>
+            <p className="appreciation-copy">
+              Klik tombol ini untuk memberi apresiasi pada portfolio saya.
+            </p>
+          </div>
+          <CounterApresiasi />
         </div>
       </div>
     </main>
