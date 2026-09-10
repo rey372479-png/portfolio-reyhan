@@ -97,15 +97,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="floating-card floating-card-top">
-                  <span>FOCUS</span>
-                  <strong>FOREX</strong>
-                </div>
-
-                <div className="floating-card floating-card-bottom">
-                  <span>INTEREST</span>
-                  <strong>BITCOIN</strong>
-                </div>
               </div>
             </div>
           </div>

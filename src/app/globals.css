@@ -551,6 +551,10 @@ a {
   transform: translateX(4px);
 }
 
+.page-next-link {
+  margin-top: 2.5rem;
+}
+
 /* =========================
    OVERVIEW
 ========================= */
@@ -925,6 +929,49 @@ a {
   line-height: 1.9;
 }
 
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.social-card {
+  display: flex;
+  min-height: 112px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.social-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--blue);
+  box-shadow: 0 14px 30px rgba(77, 141, 255, 0.1);
+}
+
+.social-label {
+  color: #777;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+}
+
+.social-card strong {
+  margin-top: 1rem;
+  color: #f5f5f5;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 .instagram-card {
   display: inline-flex;
   flex-direction: column;
@@ -1199,6 +1246,10 @@ a {
 
   .contact-box {
     padding: 2rem;
+  }
+
+  .contact-links {
+    grid-template-columns: 1fr;
   }
 }
 

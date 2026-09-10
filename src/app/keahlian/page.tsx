@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function KeahlianPage() {
   return (
     <main className="page">
@@ -82,6 +84,10 @@ export default function KeahlianPage() {
             </p>
           </div>
         </div>
+
+        <Link href="/proyek" className="minimal-link page-next-link">
+          Lihat Project Saya <span>→</span>
+        </Link>
       </div>
     </main>
   );

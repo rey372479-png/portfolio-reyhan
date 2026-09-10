@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function ProyekPage() {
   return (
     <main className="page">
@@ -139,6 +141,10 @@ export default function ProyekPage() {
             </div>
           </div>
         </div>
+
+        <Link href="/kontak" className="minimal-link page-next-link">
+          Hubungi Saya <span>→</span>
+        </Link>
       </div>
     </main>
   );
