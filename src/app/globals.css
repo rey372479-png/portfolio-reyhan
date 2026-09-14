@@ -1480,7 +1480,7 @@ a {
    RESPONSIVE
 ========================= */
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
   .navbar-collapse:not(.show) {
     display: none;
   }
@@ -1517,8 +1517,8 @@ a {
   }
 }
 
-@media (min-width: 992px) {
-  .navbar-collapse {
+@media (min-width: 768px) {
+  .navbar-expand-lg .navbar-collapse {
     display: flex !important;
   }
 
