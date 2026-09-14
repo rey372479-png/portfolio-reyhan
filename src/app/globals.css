@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
 
 :root {
   --bg: #050505;
@@ -963,7 +964,154 @@ a {
 }
 
 .not-found-content {
-  padding-top: 8rem;
+  position: relative;
+  min-height: calc(100vh - 78px);
+  padding-top: 9rem;
+  padding-bottom: 5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  overflow: hidden;
+}
+
+.not-found-content > *:not(.not-found-orbit) {
+  position: relative;
+  z-index: 1;
+}
+
+.not-found-orbit {
+  position: absolute;
+  border: 1px solid rgba(77, 141, 255, 0.12);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.not-found-orbit-one {
+  width: 520px;
+  height: 520px;
+  top: 16%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.not-found-orbit-two {
+  width: 720px;
+  height: 720px;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+.not-found-mark {
+  position: relative;
+  width: 118px;
+  height: 118px;
+  margin-bottom: 2.2rem;
+  transform: rotate(-7deg);
+  animation: floatOne 4s ease-in-out infinite;
+}
+
+.not-found-face {
+  position: absolute;
+  inset: 8px 8px 0 0;
+  display: block;
+  border: 1px solid rgba(77, 141, 255, 0.5);
+  border-radius: 35px;
+  background: linear-gradient(145deg, #101827, #0a0d13);
+  box-shadow: 14px 14px 0 rgba(77, 141, 255, 0.18), 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.not-found-face i {
+  position: absolute;
+  top: 35px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
+}
+
+.not-found-face i:first-child {
+  left: 27px;
+}
+
+.not-found-face i:nth-child(2) {
+  right: 27px;
+}
+
+.not-found-face b {
+  position: absolute;
+  left: 37px;
+  bottom: 25px;
+  width: 27px;
+  height: 12px;
+  border-bottom: 2px solid var(--blue);
+  border-radius: 0 0 50% 50%;
+}
+
+.not-found-sticker {
+  position: absolute;
+  top: -10px;
+  right: -18px;
+  padding: 0.35rem 0.55rem;
+  border-radius: 8px;
+  background: var(--blue);
+  color: #061022;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 800;
+  transform: rotate(10deg);
+}
+
+.not-found-code {
+  margin-top: 1.1rem;
+  color: #f5f5f5;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(7rem, 18vw, 12rem);
+  font-weight: 700;
+  letter-spacing: -0.1em;
+  line-height: 0.8;
+}
+
+.not-found-title {
+  margin-top: 2rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.not-found-description {
+  max-width: 560px;
+  margin-top: 1rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.not-found-terminal {
+  width: min(100%, 450px);
+  margin-top: 2rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #a6a6a6;
+  font-family: monospace;
+  font-size: 0.8rem;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.not-found-terminal span,
+.not-found-terminal strong {
+  color: var(--blue);
+}
+
+.not-found-terminal strong {
+  font-weight: 400;
+}
+
+.not-found-link {
+  margin-top: 1.6rem;
 }
 
 .empty-projects {
@@ -1159,6 +1307,19 @@ a {
   border-top: 1px solid var(--border);
   color: #666;
   font-size: 0.8rem;
+}
+
+.footer-inner {
+  width: min(1180px, 92%);
+}
+
+.footer-link {
+  color: var(--muted);
+  transition: color 0.25s ease;
+}
+
+.footer-link:hover {
+  color: var(--blue);
 }
 
 /* =========================
@@ -1416,6 +1577,40 @@ a {
 
   .project-detail {
     padding: 2rem;
+  }
+
+  .not-found-content {
+    min-height: calc(100vh - 70px);
+    padding-top: 7rem;
+  }
+
+  .not-found-orbit-one {
+    width: 360px;
+    height: 360px;
+    top: 20%;
+  }
+
+  .not-found-orbit-two {
+    width: 500px;
+    height: 500px;
+    top: 10%;
+  }
+
+  .not-found-mark {
+    margin-bottom: 1.8rem;
+  }
+
+  .not-found-code {
+    font-size: clamp(6rem, 28vw, 9rem);
+  }
+
+  .not-found-title {
+    max-width: 330px;
+    line-height: 1.2;
+  }
+
+  .not-found-description {
+    max-width: 340px;
   }
 }
 

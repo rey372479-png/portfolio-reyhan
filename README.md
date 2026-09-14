@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio M. Reyhan Purnomo Putra
 
-## Getting Started
+Website profil siswa dan portfolio yang dibuat dengan Next.js App Router,
+TypeScript, Tailwind CSS, Bootstrap, dan CSS custom.
 
-First, run the development server:
+## Fitur Project
+
+- Layout responsif mobile-first dengan navbar dan footer global.
+- Komponen reusable: `Navbar`, `Footer`, `Badge`, dan `CardProyek`.
+- Client Component `CounterApresiasi` dengan `useState` dan `onClick`.
+- Data proyek terpisah di `src/data/proyek.ts`.
+- Filter kategori berbasis URL pada `/proyek?category=web`.
+- Dynamic routing pada `/proyek/[id]` dengan asynchronous `params`.
+- Halaman 404 custom untuk route dan ID proyek yang tidak ditemukan.
+
+## Menjalankan Project
+
+Pastikan Node.js 18.18 atau lebih baru sudah terpasang.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checklist Pengujian
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Buka `/proyek`, lalu coba filter `Web`, `Mobile`, dan `Design`.
+2. Buka detail proyek, misalnya `/proyek/1`.
+3. Buka `/proyek/999` untuk menguji halaman 404 custom.
+4. Buka `/halaman-yang-tidak-ada` untuk menguji 404 global.
+5. Buka `/tentang`, lalu klik tombol apresiasi beberapa kali.
+6. Uji navbar dan seluruh halaman pada Chrome DevTools dengan lebar 375px.
+7. Jalankan `pnpm build` untuk memastikan TypeScript dan produksi berhasil.
 
-## Learn More
+## Struktur Penting
 
-To learn more about Next.js, take a look at the following resources:
+```text
+src/
+	app/
+		proyek/[id]/page.tsx  # Dynamic route proyek
+		Footer.tsx            # Footer global
+		Navbar.tsx            # Navbar client untuk menu mobile
+		not-found.tsx         # Halaman 404 custom
+	components/
+		Badge.tsx
+		CardProyek.tsx
+		CounterApresiasi.tsx
+	data/
+		proyek.ts
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Repository GitHub:
+`https://github.com/rey372479-png/portfolio-reyhan`
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Project ini dapat diimpor ke Vercel menggunakan repository GitHub tersebut.
+Setiap push ke branch `main` akan memicu deployment otomatis jika repository
+sudah terhubung di dashboard Vercel.
