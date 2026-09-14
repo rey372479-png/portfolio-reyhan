@@ -36,10 +36,10 @@ export default function Navbar() {
         </button>
 
         <div
-          className={`collapse navbar-collapse${isOpen ? " show" : ""}`}
+          className={`site-nav-menu${isOpen ? " show" : ""}`}
           id="mainNavbar"
         >
-          <div className="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <div className="site-nav-links">
             {links.map((link) => (
               <Link
                 key={link.href}

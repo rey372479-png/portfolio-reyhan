@@ -76,14 +76,22 @@ a {
 }
 
 /* Keep the navigation behavior stable when Bootstrap and Tailwind are both loaded. */
-.navbar-collapse {
-  flex-grow: 1;
-  flex-basis: auto;
+.site-nav-menu {
+  display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
-.navbar-nav {
+.site-nav-links {
   display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-nav-menu .nav-link {
+  flex-grow: 0;
+  flex-basis: auto;
+  align-items: center;
 }
 
 .brand-logo {
@@ -1481,18 +1489,21 @@ a {
 ========================= */
 
 @media (max-width: 767px) {
-  .navbar-collapse:not(.show) {
+  .site-nav-menu:not(.show) {
     display: none;
   }
 
-  .navbar-collapse.show {
+  .site-nav-menu.show {
     display: block;
+    width: 100%;
+    margin-left: 0;
     padding-bottom: 1rem;
   }
 
-  .navbar-nav {
+  .site-nav-links {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0;
   }
 
   .hero-section {
@@ -1518,11 +1529,15 @@ a {
 }
 
 @media (min-width: 768px) {
-  .navbar-expand-lg .navbar-collapse {
+  .navbar-toggler {
+    display: none;
+  }
+
+  .site-nav-menu {
     display: flex !important;
   }
 
-  .navbar-nav {
+  .site-nav-links {
     flex-direction: row;
     align-items: center;
   }
