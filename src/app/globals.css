@@ -75,6 +75,17 @@ a {
   align-items: center;
 }
 
+/* Keep the navigation behavior stable when Bootstrap and Tailwind are both loaded. */
+.navbar-collapse {
+  flex-grow: 1;
+  flex-basis: auto;
+  align-items: center;
+}
+
+.navbar-nav {
+  display: flex;
+}
+
 .brand-logo {
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.5rem;
@@ -1470,6 +1481,20 @@ a {
 ========================= */
 
 @media (max-width: 991px) {
+  .navbar-collapse:not(.show) {
+    display: none;
+  }
+
+  .navbar-collapse.show {
+    display: block;
+    padding-bottom: 1rem;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .hero-section {
     padding-top: 100px;
   }
@@ -1489,6 +1514,17 @@ a {
 
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-collapse {
+    display: flex !important;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+    align-items: center;
   }
 }
 
