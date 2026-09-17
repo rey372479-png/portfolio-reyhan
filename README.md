@@ -67,8 +67,12 @@ sudah terhubung di dashboard Vercel.
 ### 1. Siapkan database
 
 Buat project gratis di [Supabase](https://supabase.com), buka SQL Editor, lalu
-jalankan isi file `supabase/schema.sql`. Tambahkan minimal tiga baris proyek.
-RLS harus tetap aktif dan policy `Public can read projects` harus tersedia.
+jalankan seluruh isi file `supabase/schema.sql`. Script ini akan membuat ulang
+tabel `proyek`, mengaktifkan RLS, membuat policy baca publik, dan memasukkan
+enam project portfolio sekaligus.
+
+Catatan: script memakai `drop table if exists`, jadi data lama di tabel
+`proyek` akan dihapus dan diganti dengan enam data portfolio dari project ini.
 
 Kolom tabel `proyek` yang dipakai aplikasi:
 
