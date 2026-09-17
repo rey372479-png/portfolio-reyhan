@@ -1,6 +1,6 @@
 import Link from "next/link";
 import CardProyek from "@/components/CardProyek";
-import { daftarProyek } from "@/data/proyek";
+import { getProyek } from "@/lib/proyek";
 
 interface ProyekPageProps {
   searchParams: Promise<{ category?: string }>;
@@ -8,6 +8,7 @@ interface ProyekPageProps {
 
 export default async function ProyekPage({ searchParams }: ProyekPageProps) {
   const { category } = await searchParams;
+  const daftarProyek = await getProyek();
   const categories = ["Semua", "Web", "Mobile", "Design"];
   const filteredProjects = category
     ? daftarProyek.filter(

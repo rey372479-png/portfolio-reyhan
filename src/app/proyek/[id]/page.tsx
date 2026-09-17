@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Badge from "@/components/Badge";
-import { daftarProyek } from "@/data/proyek";
+import { getProyekById } from "@/lib/proyek";
 
 interface DetailProyekProps {
   params: Promise<{ id: string }>;
@@ -11,7 +11,7 @@ export default async function DetailProyekPage({
   params,
 }: DetailProyekProps) {
   const { id } = await params;
-  const proyek = daftarProyek.find((item) => item.id === id);
+  const proyek = await getProyekById(id);
 
   if (!proyek) {
     notFound();
