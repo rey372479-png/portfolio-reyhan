@@ -101,7 +101,9 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=isi_publishable_atau_anon_key
 Setelah itu jalankan ulang `pnpm dev` dan buka `/test-supabase`. Halaman
 `/proyek` dan `/proyek/[id]` akan membaca data dari tabel Supabase. Jika env
 belum diisi, aplikasi memakai data lokal sebagai fallback agar website tetap
-berjalan.
+berjalan. Jika query Supabase gagal saat env sudah diisi, error dicatat di log
+server dan data lokal dipakai sebagai pemulihan sementara; gunakan
+`/test-supabase` untuk memverifikasi koneksi sebenarnya.
 
 ### 3. Konfigurasi Vercel
 

@@ -16,7 +16,7 @@ export default async function TestSupabasePage() {
     );
   }
 
-  const { data, error } = await supabase.from("proyek").select("id");
+  const { data, error } = await supabase.from("proyek").select("*");
 
   return (
     <main className="page">

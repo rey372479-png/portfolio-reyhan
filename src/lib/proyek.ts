@@ -47,6 +47,7 @@ export async function getProyek(): Promise<ProyekItem[]> {
     .order("id", { ascending: true });
 
   if (error) {
+    console.error("Supabase gagal mengambil data proyek; memakai data lokal:", error);
     return daftarProyek;
   }
 
