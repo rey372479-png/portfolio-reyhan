@@ -68,7 +68,7 @@ values
   ),
   (
     'Mobile UI Design',
-    'Design',
+    'Mobile',
     'Desain interface aplikasi mobile yang dibuat menggunakan Figma.',
     'Project ini berisi rancangan interface mobile dengan fokus pada susunan layar, navigasi, dan pengalaman pengguna.',
     array['Figma', 'Mobile UI'],

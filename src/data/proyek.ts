@@ -58,7 +58,7 @@ export const daftarProyek: ProyekItem[] = [
   {
     id: "5",
     judul: "Mobile UI Design",
-    kategori: "Design",
+    kategori: "Mobile",
     deskripsiSingkat:
       "Desain interface aplikasi mobile yang dibuat menggunakan Figma.",
     deskripsiLengkap:

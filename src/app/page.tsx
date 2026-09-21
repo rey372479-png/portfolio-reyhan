@@ -61,7 +61,7 @@ export default function Home() {
                   <div className="hero-stat-line"></div>
 
                   <div className="hero-stat">
-                    <strong>07+</strong>
+                    <strong>06</strong>
                     <span>PROJECTS</span>
                   </div>
 

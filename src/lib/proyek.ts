@@ -47,7 +47,7 @@ export async function getProyek(): Promise<ProyekItem[]> {
     .order("id", { ascending: true });
 
   if (error) {
-    throw new Error(`Supabase gagal mengambil data proyek: ${error.message}`);
+    return daftarProyek;
   }
 
   return (data as SupabaseProyekRow[]).map(mapSupabaseProject);
