@@ -12,7 +12,8 @@ export default async function ProyekPage({ searchParams }: ProyekPageProps) {
   const categories = ["Semua", "Web", "Mobile", "Design"];
   const filteredProjects = category
     ? daftarProyek.filter(
-        (proyek) => proyek.kategori.toLowerCase() === category.toLowerCase(),
+        (proyek) =>
+          proyek.kategori.toLowerCase() === category.trim().toLowerCase(),
       )
     : daftarProyek;
 

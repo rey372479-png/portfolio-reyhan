@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 interface SupabaseProyekRow {
   id: number | string;
   judul: string;
-  kategori: ProyekItem["kategori"];
+  kategori: string;
   deskripsi_singkat: string;
   deskripsi_lengkap: string;
   teknologi: string[] | string;
@@ -21,11 +21,25 @@ function normalizeTechnologies(value: SupabaseProyekRow["teknologi"]) {
         .filter(Boolean);
 }
 
+function normalizeCategory(value: string): ProyekItem["kategori"] {
+  const category = value.trim().toLowerCase();
+
+  if (category === "mobile") {
+    return "Mobile";
+  }
+
+  if (category === "design") {
+    return "Design";
+  }
+
+  return "Web";
+}
+
 function mapSupabaseProject(row: SupabaseProyekRow): ProyekItem {
   return {
     id: String(row.id),
     judul: row.judul,
-    kategori: row.kategori,
+    kategori: normalizeCategory(row.kategori),
     deskripsiSingkat: row.deskripsi_singkat,
     deskripsiLengkap: row.deskripsi_lengkap,
     teknologi: normalizeTechnologies(row.teknologi),
