@@ -20,6 +20,25 @@ for select
 to anon, authenticated
 using (true);
 
+create policy "Authenticated users can insert projects"
+on public.proyek
+for insert
+to authenticated
+with check (true);
+
+create policy "Authenticated users can update projects"
+on public.proyek
+for update
+to authenticated
+using (true)
+with check (true);
+
+create policy "Authenticated users can delete projects"
+on public.proyek
+for delete
+to authenticated
+using (true);
+
 insert into public.proyek (
   judul,
   kategori,
