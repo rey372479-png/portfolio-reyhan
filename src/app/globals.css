@@ -469,6 +469,19 @@ a {
   transition: transform 0.7s ease, filter 0.7s ease;
 }
 
+.hero-profile-image-hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+  transition: opacity 0.35s ease;
+}
+
+.hero-image-frame:hover .hero-profile-image-hover {
+  opacity: 1;
+}
+
 .hero-image-frame:hover .hero-profile-image {
   transform: scale(1.04);
   filter: brightness(1.03);

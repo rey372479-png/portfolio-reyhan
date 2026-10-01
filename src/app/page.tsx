@@ -91,6 +91,13 @@ export default function Home() {
                     className="hero-profile-image"
                   />
 
+                  <img
+                    src="/profile-hover.jpg"
+                    alt=""
+                    aria-hidden="true"
+                    className="hero-profile-image hero-profile-image-hover"
+                  />
+
                   <div className="hero-image-label">
                     <span>BASED IN</span>
                     <strong>PASURUAN, INDONESIA</strong>
