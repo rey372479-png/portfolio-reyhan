@@ -14,6 +14,19 @@
   --blue-soft: rgba(77, 141, 255, 0.16);
 }
 
+html[data-theme="light"] {
+  --bg: #f3f6fb;
+  --bg-soft: #e9eef6;
+  --card: #ffffff;
+  --card-hover: #eef3f9;
+  --border: rgba(16, 24, 40, 0.12);
+  --border-strong: rgba(16, 24, 40, 0.2);
+  --text: #101828;
+  --muted: #667085;
+  --blue: #2563c7;
+  --blue-soft: rgba(37, 99, 199, 0.12);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -67,6 +80,20 @@ a {
   background: rgba(5, 5, 5, 0.72) !important;
   backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
+}
+
+html[data-theme="light"] body {
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(37, 99, 199, 0.1),
+      transparent 25%
+    ),
+    var(--bg);
+}
+
+html[data-theme="light"] .navbar {
+  background: rgba(255, 255, 255, 0.82) !important;
 }
 
 .nav-wrapper {
@@ -140,6 +167,14 @@ a {
   transform: translateY(-2px);
 }
 
+html[data-theme="light"] .nav-link {
+  color: #667085 !important;
+}
+
+html[data-theme="light"] .nav-link:hover {
+  color: #101828 !important;
+}
+
 .nav-link:hover::after {
   transform: scaleX(1);
 }
@@ -171,6 +206,57 @@ a {
   background: white;
   color: black !important;
   border-color: white;
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  display: inline-grid;
+  place-items: center;
+  margin-left: 0.35rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  transform: rotate(12deg) translateY(-2px);
+}
+
+html[data-theme="light"] .hero-title span {
+  -webkit-text-stroke-color: rgba(16, 24, 40, 0.5);
+}
+
+html[data-theme="light"] .hero-image-frame,
+html[data-theme="light"] .floating-card {
+  background: #ffffff;
+}
+
+html[data-theme="light"] .hero-badge,
+html[data-theme="light"] .overview-card,
+html[data-theme="light"] .skill-card,
+html[data-theme="light"] .project-card,
+html[data-theme="light"] .contact-box,
+html[data-theme="light"] .appreciation-panel {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+html[data-theme="light"] .hero-description,
+html[data-theme="light"] .intro-text,
+html[data-theme="light"] .overview-card p,
+html[data-theme="light"] .skill-card p,
+html[data-theme="light"] .project-card p {
+  color: #667085;
 }
 
 /* =========================

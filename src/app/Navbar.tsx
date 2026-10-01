@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const links = [
   { href: "/", label: "Home" },
@@ -13,7 +13,21 @@ const links = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLightTheme, setIsLightTheme] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("theme");
+    const prefersLight = window.matchMedia(
+      "(prefers-color-scheme: light)"
+    ).matches;
+    const shouldUseLightTheme = savedTheme === "light" || (!savedTheme && prefersLight);
+
+    document.documentElement.dataset.theme = shouldUseLightTheme
+      ? "light"
+      : "dark";
+    setIsLightTheme(shouldUseLightTheme);
+  }, []);
 
   if (pathname.startsWith("/admin")) {
     return null;
@@ -62,6 +76,21 @@ export default function Navbar() {
             >
               Contact
             </Link>
+
+            <button
+              type="button"
+              className="theme-toggle"
+              aria-label={isLightTheme ? "Gunakan tema gelap" : "Gunakan tema terang"}
+              title={isLightTheme ? "Gunakan tema gelap" : "Gunakan tema terang"}
+              onClick={() => {
+                const nextTheme = isLightTheme ? "dark" : "light";
+                document.documentElement.dataset.theme = nextTheme;
+                window.localStorage.setItem("theme", nextTheme);
+                setIsLightTheme(nextTheme === "light");
+              }}
+            >
+              <span aria-hidden="true">{isLightTheme ? "☾" : "☼"}</span>
+            </button>
           </div>
         </div>
       </div>
