@@ -37,7 +37,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (isLoginPage && user) {
-    return NextResponse.redirect(new URL("/admin/proyek", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return response;

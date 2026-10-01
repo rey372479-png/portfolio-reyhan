@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [isPhotoSwapped, setIsPhotoSwapped] = useState(false);
+
   return (
     <main>
       {/* HERO */}
@@ -82,7 +87,20 @@ export default function Home() {
 
                 <div className="hero-glow"></div>
 
-                <div className="hero-image-frame">
+                <div
+                  className={`hero-image-frame${isPhotoSwapped ? " is-photo-swapped" : ""}`}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Ganti foto profil"
+                  aria-pressed={isPhotoSwapped}
+                  onClick={() => setIsPhotoSwapped((swapped) => !swapped)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setIsPhotoSwapped((swapped) => !swapped);
+                    }
+                  }}
+                >
                   <div className="hero-image-number">01</div>
 
                   <img

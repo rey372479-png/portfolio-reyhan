@@ -568,9 +568,24 @@ html[data-theme="light"] .project-card p {
   opacity: 1;
 }
 
-.hero-image-frame:hover .hero-profile-image {
+.hero-image-frame.is-photo-swapped .hero-profile-image-hover {
+  opacity: 1;
+}
+
+.hero-image-frame.is-photo-swapped .hero-profile-image {
   transform: scale(1.04);
   filter: brightness(1.03);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-image-frame:hover .hero-profile-image-hover {
+    opacity: 1;
+  }
+
+  .hero-image-frame:hover .hero-profile-image {
+    transform: scale(1.04);
+    filter: brightness(1.03);
+  }
 }
 
 .hero-image-number {

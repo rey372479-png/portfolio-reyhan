@@ -19,7 +19,7 @@ export async function loginAction(formData: FormData) {
     redirect("/admin/login?error=Email%20atau%20password%20tidak%20valid");
   }
 
-  redirect("/admin/proyek");
+  redirect("/");
 }
 
 export async function logoutAction() {
