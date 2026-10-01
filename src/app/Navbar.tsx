@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { logoutAction } from "@/lib/actions/auth";
+import { supabase } from "@/lib/supabase";
 
 const links = [
   { href: "/", label: "Home" },
@@ -14,6 +16,7 @@ const links = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLightTheme, setIsLightTheme] = useState(false);
+  const [adminEmail, setAdminEmail] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -27,6 +30,24 @@ export default function Navbar() {
       ? "light"
       : "dark";
     setIsLightTheme(shouldUseLightTheme);
+  }, []);
+
+  useEffect(() => {
+    if (!supabase) {
+      return;
+    }
+
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setAdminEmail(user?.email ?? null);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAdminEmail(session?.user.email ?? null);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   if (pathname.startsWith("/admin")) {
@@ -76,6 +97,24 @@ export default function Navbar() {
             >
               Contact
             </Link>
+
+            {adminEmail ? (
+              <>
+                <Link
+                  href="/admin/proyek"
+                  className="nav-link nav-admin-link"
+                  onClick={closeMenu}
+                  title={`Kelola project sebagai ${adminEmail}`}
+                >
+                  Kelola Project
+                </Link>
+                <form action={logoutAction} onSubmit={closeMenu}>
+                  <button type="submit" className="nav-logout">
+                    Logout
+                  </button>
+                </form>
+              </>
+            ) : null}
 
             <button
               type="button"

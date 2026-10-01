@@ -208,6 +208,35 @@ html[data-theme="light"] .nav-link:hover {
   border-color: white;
 }
 
+.nav-admin-link {
+  color: var(--blue) !important;
+}
+
+.nav-admin-link:hover {
+  color: var(--blue) !important;
+}
+
+.nav-logout {
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 0.75rem 0.9rem;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.nav-logout:hover {
+  border-color: var(--blue);
+  color: var(--text);
+}
+
 .theme-toggle {
   width: 40px;
   height: 40px;
