@@ -1,139 +1,176 @@
-# Portfolio M. Reyhan Purnomo Putra
+# M. Reyhan Purnomo Putra — Portfolio
 
-Website profil siswa dan portfolio yang dibuat dengan Next.js App Router,
-TypeScript, Tailwind CSS, Bootstrap, dan CSS custom.
+Website profil siswa dan portfolio berisi enam project, dibuat sebagai project
+pembelajaran dan dikembangkan dengan Next.js App Router. Data project dapat
+dibaca dari Supabase atau menggunakan data lokal sebagai fallback.
 
-## Fitur Project
+**Production:** <https://portfolio-reyhan-omega.vercel.app>
 
-- Layout responsif mobile-first dengan navbar dan footer global.
-- Komponen reusable: `Navbar`, `Footer`, `Badge`, dan `CardProyek`.
-- Client Component `CounterApresiasi` dengan `useState` dan `onClick`.
-- Data proyek terpisah di `src/data/proyek.ts`.
-- Filter kategori berbasis URL pada `/proyek?category=web`.
-- Dynamic routing pada `/proyek/[id]` dengan asynchronous `params`.
-- Halaman 404 custom untuk route dan ID proyek yang tidak ditemukan.
-- Integrasi Supabase untuk membaca data proyek dari database PostgreSQL.
-- Metadata SEO statis, metadata detail proyek dinamis, dan Open Graph image otomatis.
-- `robots.txt` mengecualikan halaman admin dan `sitemap.xml` memuat halaman proyek dari Supabase.
-- Foto profil memakai `next/image` dengan teks alternatif dan ukuran responsif.
+## Technology Stack
 
-## Menjalankan Project
+- Next.js 16.3.4 (App Router)
+- TypeScript
+- Bootstrap
+- Custom CSS (`src/app/globals.css`)
+- Supabase Authentication dan PostgreSQL melalui Supabase
+- GitHub untuk version control dan Vercel untuk deployment
+- Package manager: pnpm
 
-Pastikan Node.js 18.18 atau lebih baru sudah terpasang.
+## Completed Modules
+
+### Module 1 — Portfolio Foundation
+
+- Fondasi portfolio dengan Next.js dan App Router.
+- Halaman utama: Home, About, Skills, Projects, Contact, dan halaman detail project.
+- Layout responsif untuk berbagai ukuran layar.
+- Repository GitHub terhubung ke deployment Vercel.
+
+### Module 2 — Components, Styling, and Routing
+
+- Komponen reusable seperti `Navbar`, `Footer`, `Badge`, dan `CardProyek`.
+- Styling responsif dengan Bootstrap dan custom CSS.
+- Interaksi client dengan React `useState`, termasuk counter apresiasi dan kontrol foto.
+- Dynamic route detail project di `/proyek/[id]`.
+- `notFound()` dan custom 404 untuk project atau route yang tidak ditemukan.
+- Data portfolio dan navigasi/filter project.
+
+### Module 3 — Supabase and PostgreSQL
+
+- Integrasi Supabase sebagai layanan database PostgreSQL.
+- Tabel `proyek` untuk menyimpan enam project portfolio.
+- Pengambilan data project publik dari Supabase dengan fallback ke data lokal.
+- Konfigurasi lokal melalui environment variables di `.env.local`.
+
+### Module 4 — Authentication and Project CRUD
+
+- Supabase Authentication melalui `/admin/login`.
+- Middleware melindungi route admin; dashboard project berada di `/admin/proyek`.
+- Admin dapat membuat, memperbarui, dan menghapus project.
+- Mutasi memakai Server Actions dan `revalidatePath()` untuk memperbarui halaman terkait.
+- Row Level Security (RLS) mengatur pembacaan publik dan mutasi oleh user terautentikasi.
+- Logout melalui Supabase Authentication.
+
+### Module 5 — SEO and Performance
+
+- Metadata statis di root layout dan metadata project dinamis melalui `generateMetadata()`.
+- Open Graph image otomatis melalui `src/app/opengraph-image.tsx`.
+- `/robots.txt` mengizinkan halaman publik dan mengecualikan `/admin/`.
+- `/sitemap.xml` dibuat dinamis dan mencakup halaman detail project.
+- Foto profil memakai `next/image` dengan alt deskriptif; foto dekoratif menggunakan alt kosong.
+- Audit Lighthouse/PageSpeed production dilakukan setelah optimasi; hasil AFTER tercatat di bawah.
+
+## Production SEO and Performance Verification — AFTER
+
+| Device | Performance | Accessibility | Best Practices | SEO |
+| --- | ---: | ---: | ---: | ---: |
+| Desktop | 98 | 100 | 100 | 100 |
+| Mobile | 87 | 100 | 100 | 100 |
+
+- `/robots.txt` verified in production; `/admin/` is disallowed.
+- `/sitemap.xml` verified in production and contains 11 URLs, including all six project detail pages.
+- Open Graph image verified in production at `/opengraph-image`.
+
+## SEO Checklist
+
+- [x] Title and description configured.
+- [x] Dynamic project metadata configured.
+- [x] Open Graph image configured.
+- [x] `/robots.txt` available and excludes `/admin/`.
+- [x] `/sitemap.xml` available and includes all 6 project detail pages.
+- [x] Images use `next/image`.
+- [x] Images have descriptive alt attributes; decorative images use empty alt text.
+- [x] Production Lighthouse/PageSpeed AFTER audit completed.
+
+Historical Lighthouse BEFORE scores were not preserved in the current project documentation, so no BEFORE score is fabricated.
+
+## Local Setup
+
+### Prerequisites
+
+- Node.js 20.9.0 or newer (required by Next.js 16.3.4).
+- pnpm.
+- A Supabase project for cloud database and authentication features.
+
+### Run locally
 
 ```bash
+git clone https://github.com/rey372479-png/portfolio-reyhan.git
+cd portfolio-reyhan
 pnpm install
+```
+
+Copy `.env.example` to `.env.local` and set the Supabase values from the
+project's **Settings > API**. Do not put real keys in this README or commit
+`.env.local`.
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://<your-project-ref>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-publishable-or-anon-key>
+```
+
+Start the development server with the repository's pnpm script:
+
+```bash
 pnpm dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000).
+Open <http://localhost:3000> in a browser. Without Supabase configuration,
+project pages use the local data fallback; database-backed authentication and
+CRUD require valid environment values and the configured Supabase project.
 
-## Checklist Pengujian
+## Database Setup
 
-1. Buka `/proyek`, lalu coba filter `Web`, `Mobile`, dan `Design`.
-2. Buka detail proyek, misalnya `/proyek/1`.
-3. Buka `/proyek/999` untuk menguji halaman 404 custom.
-4. Buka `/halaman-yang-tidak-ada` untuk menguji 404 global.
-5. Buka `/tentang`, lalu klik tombol apresiasi beberapa kali.
-6. Uji navbar dan seluruh halaman pada Chrome DevTools dengan lebar 375px.
-7. Jalankan `pnpm build` untuk memastikan TypeScript dan produksi berhasil.
-8. Setelah Supabase dikonfigurasi, buka `/test-supabase` untuk memeriksa koneksi cloud.
+The active Supabase table is `public.proyek`. The audit verified that the
+application code and the Supabase project configured in `.env.local` use this
+legacy schema:
 
-## Struktur Penting
+| Column | Type | Purpose |
+| --- | --- | --- |
+| `id` | bigint (`int8`) | Identity primary key |
+| `created_at` | timestamptz | Row creation timestamp |
+| `judul` | text | Project title |
+| `kategori` | text | Project category |
+| `deskripsi_singkat` | text | Short project description |
+| `deskripsi_lengkap` | text | Full project description |
+| `teknologi` | text[] | Technologies used |
+| `tautan` | text, nullable | Optional project link |
+| `label_tautan` | text, nullable | Optional project link label |
+
+The table currently contains six project rows: Manajemen Siswa, Manajemen
+Magang, NextJS V2, My App, Mobile UI Design, and Web UI Design. Queries using
+these legacy columns succeed; queries for the newer `deskripsi` and `link`
+columns are rejected.
+
+The checked-in `supabase/schema.sql` and application data layer use this same
+legacy schema and are aligned with the schema verified by the audit. The SQL
+file begins with `DROP TABLE ... CASCADE`; review it carefully before running
+it against a database with existing data.
+
+For Vercel, configure the same two environment variable names for the required
+deployment environments in Project Settings > Environment Variables. Never
+commit `.env.local` or a Supabase secret/service-role key.
+
+## Project Structure
 
 ```text
 src/
 	app/
-		proyek/[id]/page.tsx  # Dynamic route proyek
-		Footer.tsx            # Footer global
-		Navbar.tsx            # Navbar client untuk menu mobile
-		not-found.tsx         # Halaman 404 custom
-	components/
-		Badge.tsx
-		CardProyek.tsx
-		CounterApresiasi.tsx
-	data/
-		proyek.ts
+		admin/                 # Login and protected project CRUD
+		proyek/                # Project list and dynamic detail route
+		opengraph-image.tsx    # Generated Open Graph image
+		robots.ts              # robots.txt metadata route
+		sitemap.ts             # Dynamic sitemap route
+		layout.tsx             # Root layout and site metadata
+		page.tsx               # Home page
+		globals.css            # Global custom styles
+	components/              # Shared UI components
+	data/proyek.ts           # Six local fallback projects
+	lib/                     # Supabase clients, data access, and actions
+supabase/schema.sql        # PostgreSQL table, RLS, and seed data
 ```
 
-## Deploy
+## Repository and Educational Use
 
-Repository GitHub:
-`https://github.com/rey372479-png/portfolio-reyhan`
-
-Project ini dapat diimpor ke Vercel menggunakan repository GitHub tersebut.
-Setiap push ke branch `main` akan memicu deployment otomatis jika repository
-sudah terhubung di dashboard Vercel.
-
-## Modul 5: SEO dan Performa
-
-### Implementasi
-
-- Metadata global memakai title template, description, Open Graph, dan Twitter Card.
-- Halaman detail `/proyek/[id]` menghasilkan title, description, dan Open Graph sesuai data proyek.
-- `/opengraph-image` menghasilkan gambar preview 1200 x 630 secara otomatis.
-- `/robots.txt` mengizinkan halaman publik dan mengecualikan `/admin/`.
-- `/sitemap.xml` mencantumkan halaman publik dan detail proyek terbaru dari Supabase (atau data fallback lokal).
-- Foto profil menggunakan `next/image`, ukuran responsif, dan alt deskriptif.
-
-### Checklist verifikasi sebelum portofolio dibagikan
-
-- [ ] Jalankan Lighthouse di URL production dan catat skor Performance, Accessibility, dan SEO sebelum optimasi.
-- [ ] Setelah deploy, ulangi Lighthouse dan catat skor sesudah optimasi.
-- [ ] Buka `/opengraph-image` dan bagikan URL website ke WhatsApp/Telegram untuk memeriksa preview.
-- [ ] Buka `/robots.txt` dan pastikan `/admin/` dikecualikan.
-- [ ] Buka `/sitemap.xml` dan pastikan halaman detail proyek terbaru tercantum.
-- [ ] Jalankan `pnpm build` dan pastikan build production berhasil.
-- [ ] Daftarkan sitemap di Google Search Console jika ingin meminta pengindeksan.
-
-Project production: <https://portfolio-reyhan-omega.vercel.app>
-
-## Modul 3: Supabase
-
-### 1. Siapkan database
-
-Buat project gratis di [Supabase](https://supabase.com), buka SQL Editor, lalu
-jalankan seluruh isi file `supabase/schema.sql`. Script ini akan membuat ulang
-tabel `proyek`, mengaktifkan RLS, membuat policy baca publik, dan memasukkan
-enam project portfolio sekaligus.
-
-Catatan: script memakai `drop table if exists`, jadi data lama di tabel
-`proyek` akan dihapus dan diganti dengan enam data portfolio dari project ini.
-
-Kolom tabel `proyek` yang dipakai aplikasi:
-
-| Kolom | Tipe | Keterangan |
-| --- | --- | --- |
-| `id` | bigint | Primary key dan identity |
-| `judul` | text | Judul proyek |
-| `kategori` | text | `Web`, `Mobile`, atau `Design` |
-| `deskripsi_singkat` | text | Ringkasan kartu |
-| `deskripsi_lengkap` | text | Isi halaman detail |
-| `teknologi` | text[] | Daftar teknologi |
-| `tautan` | text nullable | Link eksternal opsional |
-| `label_tautan` | text nullable | Teks tombol eksternal |
-
-### 2. Konfigurasi lokal
-
-Salin `.env.example` menjadi `.env.local`, lalu isi dari Supabase Project
-Settings > API. Gunakan publishable key atau anon key, bukan secret/service-role
-key.
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://project-id.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=isi_publishable_atau_anon_key
-```
-
-Setelah itu jalankan ulang `pnpm dev` dan buka `/test-supabase`. Halaman
-`/proyek` dan `/proyek/[id]` akan membaca data dari tabel Supabase. Jika env
-belum diisi, aplikasi memakai data lokal sebagai fallback agar website tetap
-berjalan. Jika query Supabase gagal saat env sudah diisi, error dicatat di log
-server dan data lokal dipakai sebagai pemulihan sementara; gunakan
-`/test-supabase` untuk memverifikasi koneksi sebenarnya.
-
-### 3. Konfigurasi Vercel
-
-Di Vercel Project Settings > Environment Variables, tambahkan dua variable yang
-sama untuk environment Production, Preview, dan Development. Setelah disimpan,
-lakukan Redeploy. Jangan commit `.env.local`; file tersebut sudah dilindungi
-oleh `.gitignore`.
+- GitHub: <https://github.com/rey372479-png/portfolio-reyhan>
+- Production deployment: <https://portfolio-reyhan-omega.vercel.app>
+- This is an educational portfolio project. No separate license is declared in this README.
