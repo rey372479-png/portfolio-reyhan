@@ -6,9 +6,28 @@ import Navbar from "./Navbar";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 export const metadata: Metadata = {
-  title: "M. Reyhan Purnomo Putra | Portfolio",
+  metadataBase: new URL("https://portfolio-reyhan-omega.vercel.app"),
+  title: {
+    default: "M. Reyhan Purnomo Putra | Portfolio",
+    template: "%s | M. Reyhan Purnomo Putra",
+  },
   description:
-    "Portfolio pribadi M. Reyhan Purnomo Putra - Web Developer, Forex Trader & Crypto Enthusiast",
+    "Portfolio M. Reyhan Purnomo Putra, siswa SMKN 1 Kota Pasuruan yang belajar web development, forex, dan cryptocurrency.",
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://portfolio-reyhan-omega.vercel.app",
+    siteName: "Portfolio M. Reyhan Purnomo Putra",
+    title: "M. Reyhan Purnomo Putra | Portfolio",
+    description:
+      "Portfolio web development dan project pilihan M. Reyhan Purnomo Putra.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "M. Reyhan Purnomo Putra | Portfolio",
+    description:
+      "Portfolio web development dan project pilihan M. Reyhan Purnomo Putra.",
+  },
 };
 
 export default async function RootLayout({

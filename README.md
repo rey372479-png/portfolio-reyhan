@@ -13,6 +13,9 @@ TypeScript, Tailwind CSS, Bootstrap, dan CSS custom.
 - Dynamic routing pada `/proyek/[id]` dengan asynchronous `params`.
 - Halaman 404 custom untuk route dan ID proyek yang tidak ditemukan.
 - Integrasi Supabase untuk membaca data proyek dari database PostgreSQL.
+- Metadata SEO statis, metadata detail proyek dinamis, dan Open Graph image otomatis.
+- `robots.txt` mengecualikan halaman admin dan `sitemap.xml` memuat halaman proyek dari Supabase.
+- Foto profil memakai `next/image` dengan teks alternatif dan ukuran responsif.
 
 ## Menjalankan Project
 
@@ -61,6 +64,29 @@ Repository GitHub:
 Project ini dapat diimpor ke Vercel menggunakan repository GitHub tersebut.
 Setiap push ke branch `main` akan memicu deployment otomatis jika repository
 sudah terhubung di dashboard Vercel.
+
+## Modul 5: SEO dan Performa
+
+### Implementasi
+
+- Metadata global memakai title template, description, Open Graph, dan Twitter Card.
+- Halaman detail `/proyek/[id]` menghasilkan title, description, dan Open Graph sesuai data proyek.
+- `/opengraph-image` menghasilkan gambar preview 1200 x 630 secara otomatis.
+- `/robots.txt` mengizinkan halaman publik dan mengecualikan `/admin/`.
+- `/sitemap.xml` mencantumkan halaman publik dan detail proyek terbaru dari Supabase (atau data fallback lokal).
+- Foto profil menggunakan `next/image`, ukuran responsif, dan alt deskriptif.
+
+### Checklist verifikasi sebelum portofolio dibagikan
+
+- [ ] Jalankan Lighthouse di URL production dan catat skor Performance, Accessibility, dan SEO sebelum optimasi.
+- [ ] Setelah deploy, ulangi Lighthouse dan catat skor sesudah optimasi.
+- [ ] Buka `/opengraph-image` dan bagikan URL website ke WhatsApp/Telegram untuk memeriksa preview.
+- [ ] Buka `/robots.txt` dan pastikan `/admin/` dikecualikan.
+- [ ] Buka `/sitemap.xml` dan pastikan halaman detail proyek terbaru tercantum.
+- [ ] Jalankan `pnpm build` dan pastikan build production berhasil.
+- [ ] Daftarkan sitemap di Google Search Console jika ingin meminta pengindeksan.
+
+Project production: <https://portfolio-reyhan-omega.vercel.app>
 
 ## Modul 3: Supabase
 

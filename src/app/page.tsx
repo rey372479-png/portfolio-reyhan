@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
@@ -8,7 +9,6 @@ export default function Home() {
 
   return (
     <main>
-      {/* HERO */}
       <section className="hero-section">
         <div className="hero-grid-bg"></div>
 
@@ -103,17 +103,22 @@ export default function Home() {
                 >
                   <div className="hero-image-number">01</div>
 
-                  <img
+                  <Image
                     src="/profile.jpg"
-                    alt="M. Reyhan Purnomo Putra"
+                    alt="M. Reyhan Purnomo Putra berdiri di depan mobil-mobil di malam hari"
                     className="hero-profile-image"
+                    fill
+                    sizes="(max-width: 991px) 82vw, 390px"
+                    preload
                   />
 
-                  <img
+                  <Image
                     src="/profile-hover.jpg"
                     alt=""
                     aria-hidden="true"
                     className="hero-profile-image hero-profile-image-hover"
+                    fill
+                    sizes="(max-width: 991px) 82vw, 390px"
                   />
 
                   <div className="hero-image-label">
