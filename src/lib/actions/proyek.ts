@@ -10,16 +10,59 @@ function textValue(formData: FormData, name: string) {
   return String(formData.get(name) ?? "").trim();
 }
 
-function technologiesValue(formData: FormData) {
-  return textValue(formData, "teknologi")
+function parseProjectInput(formData: FormData) {
+  const judul = textValue(formData, "judul");
+  const kategori = textValue(formData, "kategori");
+  const deskripsiSingkat = textValue(formData, "deskripsi_singkat");
+  const deskripsiLengkap = textValue(formData, "deskripsi_lengkap");
+  const teknologi = textValue(formData, "teknologi")
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
+  const rawLink = textValue(formData, "tautan");
+  const labelTautan = textValue(formData, "label_tautan");
+
+  if (!judul || !deskripsiSingkat || !deskripsiLengkap) {
+    return { valid: false as const, error: "Judul dan kedua deskripsi wajib diisi." };
+  }
+
+  if (!categories.has(kategori)) {
+    return { valid: false as const, error: "Pilih kategori proyek yang tersedia." };
+  }
+
+  let tautan: string | null = null;
+  if (rawLink) {
+    try {
+      const parsedLink = new URL(rawLink);
+      if (parsedLink.protocol !== "https:" && parsedLink.protocol !== "http:") {
+        return { valid: false as const, error: "Link proyek harus menggunakan HTTP atau HTTPS." };
+      }
+      tautan = parsedLink.toString();
+    } catch {
+      return { valid: false as const, error: "Masukkan URL proyek yang valid." };
+    }
+  }
+
+  if (teknologi.length > 20 || teknologi.some((item) => item.length > 80)) {
+    return { valid: false as const, error: "Periksa kembali daftar teknologi proyek." };
+  }
+
+  return {
+    valid: true as const,
+    values: {
+      judul,
+      kategori,
+      deskripsi_singkat: deskripsiSingkat,
+      deskripsi_lengkap: deskripsiLengkap,
+      teknologi,
+      tautan,
+      label_tautan: labelTautan || null,
+    },
+  };
 }
 
-function categoryValue(formData: FormData) {
-  const category = textValue(formData, "kategori");
-  return categories.has(category) ? category : "Web";
+function projectErrorPath(path: string, message: string): never {
+  redirect(`${path}?error=${encodeURIComponent(message)}`);
 }
 
 async function requireAdmin() {
@@ -43,26 +86,15 @@ function refreshProjectPages() {
 
 export async function createProjectAction(formData: FormData) {
   const supabase = await requireAdmin();
-  const judul = textValue(formData, "judul");
-  const deskripsiSingkat = textValue(formData, "deskripsi_singkat");
-  const deskripsiLengkap = textValue(formData, "deskripsi_lengkap");
-
-  if (!judul || !deskripsiSingkat || !deskripsiLengkap) {
-    redirect("/admin/proyek/tambah?error=Judul%20dan%20deskripsi%20wajib%20diisi");
+  const input = parseProjectInput(formData);
+  if (!input.valid) {
+    projectErrorPath("/admin/proyek/tambah", input.error);
   }
 
-  const { error } = await supabase.from("proyek").insert({
-    judul,
-    kategori: categoryValue(formData),
-    deskripsi_singkat: deskripsiSingkat,
-    deskripsi_lengkap: deskripsiLengkap,
-    teknologi: technologiesValue(formData),
-    tautan: textValue(formData, "tautan") || null,
-    label_tautan: textValue(formData, "label_tautan") || null,
-  });
+  const { error } = await supabase.from("proyek").insert(input.values);
 
   if (error) {
-    redirect(`/admin/proyek/tambah?error=${encodeURIComponent(error.message)}`);
+    projectErrorPath("/admin/proyek/tambah", error.message);
   }
 
   refreshProjectPages();
@@ -72,29 +104,22 @@ export async function createProjectAction(formData: FormData) {
 export async function updateProjectAction(formData: FormData) {
   const supabase = await requireAdmin();
   const id = textValue(formData, "id");
-  const judul = textValue(formData, "judul");
-  const deskripsiSingkat = textValue(formData, "deskripsi_singkat");
-  const deskripsiLengkap = textValue(formData, "deskripsi_lengkap");
+  const input = parseProjectInput(formData);
 
-  if (!id || !judul || !deskripsiSingkat || !deskripsiLengkap) {
-    redirect(`/admin/proyek/edit/${id}?error=Data%20wajib%20diisi`);
+  if (!id) {
+    projectErrorPath("/admin/proyek", "ID proyek tidak valid.");
+  }
+  if (!input.valid) {
+    projectErrorPath(`/admin/proyek/edit/${encodeURIComponent(id)}`, input.error);
   }
 
   const { error } = await supabase
     .from("proyek")
-    .update({
-      judul,
-      kategori: categoryValue(formData),
-      deskripsi_singkat: deskripsiSingkat,
-      deskripsi_lengkap: deskripsiLengkap,
-      teknologi: technologiesValue(formData),
-      tautan: textValue(formData, "tautan") || null,
-      label_tautan: textValue(formData, "label_tautan") || null,
-    })
+    .update(input.values)
     .eq("id", id);
 
   if (error) {
-    redirect(`/admin/proyek/edit/${id}?error=${encodeURIComponent(error.message)}`);
+    projectErrorPath(`/admin/proyek/edit/${encodeURIComponent(id)}`, error.message);
   }
 
   refreshProjectPages();
@@ -106,13 +131,13 @@ export async function deleteProjectAction(formData: FormData) {
   const id = textValue(formData, "id");
 
   if (!id) {
-    redirect("/admin/proyek?error=ID%20proyek%20tidak%20valid");
+    projectErrorPath("/admin/proyek", "ID proyek tidak valid.");
   }
 
   const { error } = await supabase.from("proyek").delete().eq("id", id);
 
   if (error) {
-    redirect(`/admin/proyek?error=${encodeURIComponent(error.message)}`);
+    projectErrorPath("/admin/proyek", error.message);
   }
 
   refreshProjectPages();

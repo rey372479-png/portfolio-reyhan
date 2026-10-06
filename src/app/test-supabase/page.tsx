@@ -27,7 +27,7 @@ export default async function TestSupabasePage() {
         </h1>
         <p className="inner-intro">
           {error
-            ? `Supabase mengembalikan error: ${error.message}`
+            ? "Supabase belum dapat membaca data proyek. Periksa konfigurasi dan akses database di lingkungan server."
             : `Tabel proyek terbaca dengan ${data.length} data.`}
         </p>
       </div>

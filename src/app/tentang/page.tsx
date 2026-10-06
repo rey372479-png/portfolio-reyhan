@@ -42,6 +42,12 @@ export default function TentangPage() {
               </p>
 
               <p>
+                Saya juga aktif belajar melalui organisasi. Saya pernah
+                mengemban posisi Head of Cadre Development di PR IPM SMP
+                Muhammadiyah 1 Kota Pasuruan.
+              </p>
+
+              <p>
                 Saya memiliki mimpi untuk menjadi sukses di usia muda
                 melalui bidang yang saya tekuni. Karena itu, saya
                 terus berusaha belajar, membuat project, dan
@@ -63,13 +69,13 @@ export default function TentangPage() {
                 </div>
 
                 <div>
-                  <small>AGE</small>
-                  <strong>17 Years Old</strong>
+                  <small>SCHOOL</small>
+                  <strong>SMKN 1 Kota Pasuruan</strong>
                 </div>
 
                 <div>
-                  <small>SCHOOL</small>
-                  <strong>SMKN 1 Kota Pasuruan</strong>
+                  <small>ORGANISATION</small>
+                  <strong>Head of Cadre Development, PR IPM SMP Muhammadiyah 1 Kota Pasuruan</strong>
                 </div>
 
                 <div>

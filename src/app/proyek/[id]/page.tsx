@@ -51,28 +51,37 @@ export default async function DetailProyekPage({
           <span>←</span> Kembali ke Project
         </Link>
 
-        <article className="project-detail">
+        <article className="project-detail case-study">
           <div className="project-detail-heading">
             <div>
               <p className="section-label">
-                PROJECT {proyek.id.padStart(2, "0")}
+                SELECTED WORK / {proyek.id.padStart(2, "0")}
               </p>
               <h1 className="section-title">{proyek.judul}</h1>
             </div>
             <Badge label={proyek.kategori} />
           </div>
 
-          <p className="project-detail-description">
-            {proyek.deskripsiLengkap}
-          </p>
+          <div className="case-study-grid">
+            <section className="case-study-overview">
+              <p className="section-label">PROJECT OVERVIEW</p>
+              <p className="case-study-lead">{proyek.deskripsiSingkat}</p>
+              <p className="project-detail-description">
+                {proyek.deskripsiLengkap}
+              </p>
+            </section>
 
-          <div className="project-detail-section">
-            <p className="section-label">TECHNOLOGIES</p>
-            <div className="project-technologies">
-              {proyek.teknologi.map((teknologi) => (
-                <span key={teknologi}>{teknologi}</span>
-              ))}
-            </div>
+            <section className="project-detail-section">
+              <p className="section-label">TOOLS &amp; TECHNOLOGIES</p>
+              <div className="project-technologies">
+                {proyek.teknologi.map((teknologi) => (
+                  <span key={teknologi}>{teknologi}</span>
+                ))}
+              </div>
+              <p className="case-study-note">
+                Dibuat sebagai bagian dari proses belajar dan eksplorasi.
+              </p>
+            </section>
           </div>
 
           {proyek.tautan ? (

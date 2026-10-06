@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { deleteProjectAction } from "@/lib/actions/proyek";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 interface AdminProjectsPageProps {
@@ -81,9 +80,6 @@ export default async function AdminProjectsPage({
         </table>
       </div>
 
-      <form action={deleteProjectAction} className="admin-hidden-action" aria-hidden="true">
-        <input name="id" readOnly />
-      </form>
     </div>
   );
 }

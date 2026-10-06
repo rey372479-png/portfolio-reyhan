@@ -9,17 +9,24 @@ interface CardProyekProps {
 export default function CardProyek({ proyek }: CardProyekProps) {
   return (
     <article className="project-card">
-      <span>{proyek.id.padStart(2, "0")}</span>
+      <div className="project-card-top">
+        <span className="project-card-number">{proyek.id.padStart(2, "0")}</span>
+        <Badge label={proyek.kategori} />
+      </div>
 
       <h3>{proyek.judul}</h3>
 
       <p>{proyek.deskripsiSingkat}</p>
 
-      <Badge label={proyek.kategori} />
+      <div className="project-card-tech" aria-label="Teknologi proyek">
+        {proyek.teknologi.map((teknologi) => (
+          <span key={teknologi}>{teknologi}</span>
+        ))}
+      </div>
 
       <div className="project-card-actions">
         <Link href={`/proyek/${proyek.id}`} className="project-link">
-          Detail Project <span>→</span>
+          Explore project <span>↗</span>
         </Link>
 
         {proyek.tautan ? (
