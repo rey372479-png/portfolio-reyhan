@@ -53,7 +53,7 @@ alter table public.support_messages enable row level security;
 create policy "Public visitors can insert support messages"
 on public.support_messages
 for insert
-to anon
+to anon, authenticated
 with check (true);
 
 create policy "Admin can select support messages"
@@ -90,7 +90,7 @@ alter table public.feedback enable row level security;
 create policy "Public visitors can insert feedback"
 on public.feedback
 for insert
-to anon
+to anon, authenticated
 with check (true);
 
 create policy "Admin can select feedback"
