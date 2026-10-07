@@ -55,7 +55,7 @@ export default function ProfilePortrait() {
           preload
         />
         <Image
-          src="/profile-hover.jpg"
+          src="/profile-hover.jpeg"
           alt=""
           aria-hidden="true"
           className="hero-profile-image hero-profile-image-hover"
