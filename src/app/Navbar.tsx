@@ -38,6 +38,18 @@ export default function Navbar({ adminEmail }: NavbarProps) {
     return null;
   }
 
+  const isActiveLink = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    if (href === "/proyek") {
+      return pathname === "/proyek" || pathname.startsWith("/proyek/");
+    }
+
+    return pathname === href;
+  };
+
   const closeMenu = () => setIsOpen(false);
 
   return (
@@ -67,7 +79,7 @@ export default function Navbar({ adminEmail }: NavbarProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`nav-link${pathname === link.href ? " active" : ""}`}
+                className={`nav-link${isActiveLink(link.href) ? " active" : ""}`}
                 onClick={closeMenu}
               >
                 {link.label}
@@ -76,7 +88,7 @@ export default function Navbar({ adminEmail }: NavbarProps) {
 
             <Link
               href="/kontak"
-              className={`nav-link nav-contact${pathname === "/kontak" ? " active" : ""}`}
+              className={`nav-link${isActiveLink("/kontak") ? " active" : ""}`}
               onClick={closeMenu}
             >
               Contact

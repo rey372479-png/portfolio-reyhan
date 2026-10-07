@@ -3,6 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import AppShell from "@/components/AppShell";
+import InitialLoader from "@/components/InitialLoader";
+import SupportChat from "@/components/SupportChat";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 export const metadata: Metadata = {
@@ -52,15 +55,20 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
       <body>
-        <header className="site-header">
-          <Navbar adminEmail={await getAdminEmail()} />
-        </header>
+        <InitialLoader />
 
-        {children}
+        <AppShell>
+          <header className="site-header">
+            <Navbar adminEmail={await getAdminEmail()} />
+          </header>
 
-        <Footer />
+          {children}
+
+          <Footer />
+          <SupportChat />
+        </AppShell>
       </body>
     </html>
   );

@@ -44,18 +44,21 @@ export default async function DetailProyekPage({
     notFound();
   }
 
+  const learningText =
+    "Proyek ini memperkuat cara saya memahami struktur, estetika, dan tujuan dari setiap antarmuka yang dibuat. Saya belajar bahwa pengalaman pengguna yang baik dimulai dari keputusan yang jelas, bukan hanya visual yang menarik.";
+
   return (
-    <main className="page">
+    <main className="page detail-page">
       <div className="container">
         <Link href="/proyek" className="minimal-link project-back-link">
-          <span>←</span> Kembali ke Project
+          <span aria-hidden="true">←</span> Kembali ke Project
         </Link>
 
-        <article className="project-detail case-study">
+        <article className="project-detail case-study panel-surface">
           <div className="project-detail-heading">
             <div>
               <p className="section-label">
-                SELECTED WORK / {proyek.id.padStart(2, "0")}
+                PROJECT / {proyek.id.padStart(2, "0")}
               </p>
               <h1 className="section-title">{proyek.judul}</h1>
             </div>
@@ -64,23 +67,34 @@ export default async function DetailProyekPage({
 
           <div className="case-study-grid">
             <section className="case-study-overview">
-              <p className="section-label">PROJECT OVERVIEW</p>
+              <p className="section-label">INTRODUCTION</p>
               <p className="case-study-lead">{proyek.deskripsiSingkat}</p>
-              <p className="project-detail-description">
-                {proyek.deskripsiLengkap}
-              </p>
+              <p className="project-detail-description">{proyek.deskripsiLengkap}</p>
             </section>
 
             <section className="project-detail-section">
-              <p className="section-label">TOOLS &amp; TECHNOLOGIES</p>
+              <p className="section-label">PROJECT INFORMATION</p>
               <div className="project-technologies">
                 {proyek.teknologi.map((teknologi) => (
                   <span key={teknologi}>{teknologi}</span>
                 ))}
               </div>
               <p className="case-study-note">
-                Dibuat sebagai bagian dari proses belajar dan eksplorasi.
+                Dibuat sebagai bagian dari proses belajar, eksperimen, dan penguatan
+                skill dalam membangun pengalaman digital yang lebih tertata.
               </p>
+            </section>
+          </div>
+
+          <div className="case-study-columns">
+            <section className="case-study-block panel-surface">
+              <p className="section-label">WHAT I BUILT</p>
+              <p>{proyek.deskripsiLengkap}</p>
+            </section>
+
+            <section className="case-study-block panel-surface">
+              <p className="section-label">WHAT I LEARNED</p>
+              <p>{learningText}</p>
             </section>
           </div>
 
@@ -89,9 +103,9 @@ export default async function DetailProyekPage({
               href={proyek.tautan}
               target="_blank"
               rel="noopener noreferrer"
-              className="hero-btn hero-btn-primary project-detail-link"
+              className="editorial-button editorial-button-light project-detail-link"
             >
-              {proyek.labelTautan} <span>↗</span>
+              {proyek.labelTautan ?? "Open project"} <span aria-hidden="true">↗</span>
             </a>
           ) : null}
         </article>

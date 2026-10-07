@@ -16,22 +16,48 @@ export default async function ProyekPage({ searchParams }: ProyekPageProps) {
           proyek.kategori.toLowerCase() === category.trim().toLowerCase(),
       )
     : daftarProyek;
+  const featuredProject = daftarProyek[0];
 
   return (
-    <main className="page">
+    <main className="page projects-page">
       <div className="container">
         <p className="section-label">04 / SELECTED WORK</p>
 
-        <h1 className="section-title">
-          Project
-          <br />
-          Saya.
-        </h1>
+        <div className="editorial-page-hero project-hero">
+          <div>
+            <h1 className="editorial-page-title">
+              Work shaped by <span>curiosity.</span>
+            </h1>
+            <p className="inner-intro">
+              Saya menempatkan setiap project sebagai pengalaman belajar: riset,
+              komposisi, pengujian, dan penyempurnaan. Di bawah ini adalah enam
+              karya yang mencerminkan proses itu.
+            </p>
+          </div>
 
-        <p className="inner-intro">
-          Beberapa project yang pernah saya kerjakan selama belajar
-          web development dan UI design.
-        </p>
+          <div className="info-rail panel-surface">
+            <p className="meta-kicker">PORTFOLIO SNAPSHOT</p>
+            <p>Six deliberate projects spanning web interfaces, student management, and design exploration.</p>
+          </div>
+        </div>
+
+        <article className="feature-project panel-surface">
+          <div className="feature-project-copy">
+            <p className="meta-kicker">FEATURED PROJECT</p>
+            <h2>{featuredProject.judul}</h2>
+            <p>{featuredProject.deskripsiSingkat}</p>
+            <div className="project-card-tech" aria-label="Teknologi proyek unggulan">
+              {featuredProject.teknologi.map((teknologi) => (
+                <span key={teknologi}>{teknologi}</span>
+              ))}
+            </div>
+          </div>
+          <div className="feature-project-actions">
+            <Link href={`/proyek/${featuredProject.id}`} className="editorial-button editorial-button-light">
+              Open case study <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+        </article>
 
         <div className="project-filters" aria-label="Filter kategori proyek">
           {categories.map((item) => {
@@ -68,7 +94,7 @@ export default async function ProyekPage({ searchParams }: ProyekPageProps) {
         ) : null}
 
         <Link href="/kontak" className="minimal-link page-next-link">
-          Hubungi Saya <span>→</span>
+          Let&apos;s talk <span aria-hidden="true">→</span>
         </Link>
       </div>
     </main>
