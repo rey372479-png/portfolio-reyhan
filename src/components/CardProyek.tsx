@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ProyekItem } from "@/data/proyek";
 import Badge from "./Badge";
+import ProjectImage from "./ProjectImage";
 
 interface CardProyekProps {
   proyek: ProyekItem;
@@ -8,7 +9,12 @@ interface CardProyekProps {
 
 export default function CardProyek({ proyek }: CardProyekProps) {
   return (
-    <article className="project-card">
+    <article className="project-card has-project-image">
+      <ProjectImage
+        src={proyek.imageUrl}
+        alt={`Gambar proyek ${proyek.judul}`}
+        className="project-card-image"
+      />
       <div className="project-card-top">
         <span className="project-card-number">{proyek.id.padStart(2, "0")}</span>
         <Badge label={proyek.kategori} />

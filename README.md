@@ -8,7 +8,7 @@ dibaca dari Supabase atau menggunakan data lokal sebagai fallback.
 
 ## Technology Stack
 
-- Next.js 16.3.4 (App Router)
+- Next.js 16.3.8 (App Router)
 - TypeScript
 - Bootstrap
 - Custom CSS (`src/app/globals.css`)
@@ -46,8 +46,9 @@ dibaca dari Supabase atau menggunakan data lokal sebagai fallback.
 - Supabase Authentication melalui `/admin/login`.
 - Middleware melindungi route admin; dashboard project berada di `/admin/proyek`.
 - Admin dapat membuat, memperbarui, dan menghapus project.
+- Gambar project disimpan di Supabase Storage; file tervalidasi dan hanya akun admin portfolio yang dapat mengubahnya.
 - Mutasi memakai Server Actions dan `revalidatePath()` untuk memperbarui halaman terkait.
-- Row Level Security (RLS) mengatur pembacaan publik dan mutasi oleh user terautentikasi.
+- Row Level Security (RLS) mengizinkan pembacaan publik dan membatasi mutasi hanya ke akun admin portfolio.
 - Logout melalui Supabase Authentication.
 
 ### Module 5 — SEO and Performance
@@ -58,6 +59,14 @@ dibaca dari Supabase atau menggunakan data lokal sebagai fallback.
 - `/sitemap.xml` dibuat dinamis dan mencakup halaman detail project.
 - Foto profil memakai `next/image` dengan alt deskriptif; foto dekoratif menggunakan alt kosong.
 - Audit Lighthouse/PageSpeed production dilakukan setelah optimasi; hasil AFTER tercatat di bawah.
+
+### Module 6 — Project Images and Motion
+
+- Deskripsi English tentang Software Engineering, Web Development, Prompt Engineering, AI, dan web technologies di hero.
+- Admin dapat upload, replace, atau remove gambar proyek; file disimpan di Supabase Storage, bukan PostgreSQL.
+- Thumbnail responsif ditampilkan di daftar, featured project, dan halaman detail dengan fallback saat gambar kosong/gagal dimuat.
+- Route transitions ringan dan loader initial yang lebih singkat; tetap menghormati reduced-motion.
+- Project CRUD dan Storage dibatasi ke akun admin yang sudah dikonfigurasi pada kebijakan Supabase.
 
 ## Production SEO and Performance Verification — AFTER
 
@@ -135,16 +144,26 @@ legacy schema:
 | `teknologi` | text[] | Technologies used |
 | `tautan` | text, nullable | Optional project link |
 | `label_tautan` | text, nullable | Optional project link label |
+| `image_path` | text, nullable | Path gambar project di bucket `project-images` |
 
 The table currently contains six project rows: Manajemen Siswa, Manajemen
 Magang, NextJS V2, My App, Mobile UI Design, and Web UI Design. Queries using
 these legacy columns succeed; queries for the newer `deskripsi` and `link`
 columns are rejected.
 
-The checked-in `supabase/schema.sql` and application data layer use this same
-legacy schema and are aligned with the schema verified by the audit. The SQL
-file begins with `DROP TABLE ... CASCADE`; review it carefully before running
-it against a database with existing data.
+The checked-in `supabase/schema.sql` is the initial database setup and seeds the
+six example projects. Do not run it against an existing production database.
+For the additive image feature, run
+[`supabase/migrations/20261007_project_images.sql`](./supabase/migrations/20261007_project_images.sql)
+in Supabase SQL Editor. It adds a nullable `image_path` column, creates the
+public-read `project-images` bucket, and restricts project and storage writes
+to the existing portfolio admin user. It does not drop tables or change rows.
+
+After the migration, open `/admin/proyek/edit/{id}` to add images to the six
+existing projects. Images are optional so projects without one continue to
+display the designed fallback. Accepted formats are JPEG, PNG, WebP, and AVIF
+up to 4 MB. No service-role key or additional environment variable is needed;
+uploads use the signed-in admin's Supabase session and Storage RLS.
 
 For Vercel, configure the same two environment variable names for the required
 deployment environments in Project Settings > Environment Variables. Never

@@ -9,6 +9,7 @@ export interface ProyekItem {
   teknologi: string[];
   tautan?: string;
   labelTautan?: string;
+  imageUrl?: string;
 }
 
 export const daftarProyek: ProyekItem[] = [

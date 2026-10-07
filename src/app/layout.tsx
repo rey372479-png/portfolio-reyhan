@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import AppShell from "@/components/AppShell";
 import InitialLoader from "@/components/InitialLoader";
 import SupportChat from "@/components/SupportChat";
+import { ADMIN_USER_ID } from "@/lib/admin";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 export const metadata: Metadata = {
@@ -51,7 +52,7 @@ export default async function RootLayout({
       data: { user },
     } = await supabase.auth.getUser();
 
-    return user?.email ?? null;
+    return user?.id === ADMIN_USER_ID ? user.email ?? null : null;
   };
 
   return (
@@ -59,16 +60,12 @@ export default async function RootLayout({
       <body>
         <InitialLoader />
 
-        <AppShell>
-          <header className="site-header">
-            <Navbar adminEmail={await getAdminEmail()} />
-          </header>
-
-          {children}
-
-          <Footer />
-          <SupportChat />
-        </AppShell>
+        <header className="site-header">
+          <Navbar adminEmail={await getAdminEmail()} />
+        </header>
+        <AppShell>{children}</AppShell>
+        <Footer />
+        <SupportChat />
       </body>
     </html>
   );

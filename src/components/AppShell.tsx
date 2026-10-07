@@ -1,25 +1,18 @@
 "use client";
 
+import { ViewTransition } from "react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  useEffect(() => {
-    setIsTransitioning(true);
-
-    const timer = window.setTimeout(() => {
-      setIsTransitioning(false);
-    }, 180);
-
-    return () => window.clearTimeout(timer);
-  }, [pathname]);
 
   return (
-    <div className={`page-shell${isTransitioning ? " page-shell-is-transitioning" : ""}`}>
-      {children}
+    <div className="page-shell">
+      <ViewTransition enter="portfolio-page-enter" exit="portfolio-page-exit" default="none">
+        <div className="page-transition-content" key={pathname}>
+          {children}
+        </div>
+      </ViewTransition>
     </div>
   );
 }

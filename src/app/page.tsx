@@ -77,6 +77,10 @@ export default async function Home() {
                   <span>M. REYHAN</span>
                   <span className="home-hero-title-outline">PURNOMO PUTRA</span>
                 </h1>
+                <p className="home-hero-description">
+                  Software Engineering student and Web Developer with an interest in
+                  Prompt Engineering, AI, and modern web technologies.
+                </p>
                 <p className="home-hero-manifesto">BUILD. LEAD. EXPLORE.</p>
                 <p className="home-hero-role">
                   Web Developer <span>·</span> Student <span>·</span> Explorer

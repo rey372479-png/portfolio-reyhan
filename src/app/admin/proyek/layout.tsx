@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { logoutAction } from "@/lib/actions/auth";
+import { ADMIN_USER_ID } from "@/lib/admin";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 export default async function AdminProjectsLayout({
@@ -11,7 +12,7 @@ export default async function AdminProjectsLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!user || user.id !== ADMIN_USER_ID) {
     redirect("/admin/login");
   }
 

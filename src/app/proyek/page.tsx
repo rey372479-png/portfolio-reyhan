@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CardProyek from "@/components/CardProyek";
+import ProjectImage from "@/components/ProjectImage";
 import { getProyek } from "@/lib/proyek";
 
 interface ProyekPageProps {
@@ -42,6 +43,11 @@ export default async function ProyekPage({ searchParams }: ProyekPageProps) {
         </div>
 
         <article className="feature-project panel-surface">
+          <ProjectImage
+            src={featuredProject.imageUrl}
+            alt={`Gambar proyek ${featuredProject.judul}`}
+            className="feature-project-image"
+          />
           <div className="feature-project-copy">
             <p className="meta-kicker">FEATURED PROJECT</p>
             <h2>{featuredProject.judul}</h2>

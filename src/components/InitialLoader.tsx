@@ -4,26 +4,24 @@ import { useEffect, useState } from "react";
 
 export default function InitialLoader() {
   const [isVisible, setIsVisible] = useState(true);
+  const [isExiting, setIsExiting] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const updateViewport = () => setIsMobile(window.innerWidth < 768);
-
-    updateViewport();
-
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const reducedMotion = mediaQuery.matches;
+    const mobileViewport = window.matchMedia("(max-width: 767px)").matches;
+    setIsMobile(mobileViewport);
 
-    const timer = window.setTimeout(
+    const delay = mediaQuery.matches ? 0 : mobileViewport ? 320 : 480;
+    const exitTimer = window.setTimeout(() => setIsExiting(true), delay);
+    const removeTimer = window.setTimeout(
       () => setIsVisible(false),
-      reducedMotion ? 180 : 700,
+      delay + (mediaQuery.matches ? 0 : 240),
     );
 
-    window.addEventListener("resize", updateViewport);
-
     return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener("resize", updateViewport);
+      window.clearTimeout(exitTimer);
+      window.clearTimeout(removeTimer);
     };
   }, []);
 
@@ -32,7 +30,11 @@ export default function InitialLoader() {
   }
 
   return (
-    <div className="loading-screen" aria-live="polite" aria-busy="true">
+    <div
+      className={`loading-screen${isExiting ? " is-exiting" : ""}`}
+      aria-live="polite"
+      aria-busy={!isExiting}
+    >
       <div className="loading-screen-inner">
         <div className="loading-desktop" aria-hidden="true">
           <span className="loading-mark">MR.</span>

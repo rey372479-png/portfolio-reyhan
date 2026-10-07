@@ -35,6 +35,9 @@ export default async function EditProjectPage({
     teknologi: Array.isArray(row.teknologi) ? row.teknologi : [],
     tautan: row.tautan ?? undefined,
     labelTautan: row.label_tautan ?? undefined,
+    imageUrl: row.image_path
+      ? supabase.storage.from("project-images").getPublicUrl(row.image_path).data.publicUrl
+      : undefined,
   };
 
   return (

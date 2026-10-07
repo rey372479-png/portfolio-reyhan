@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Badge from "@/components/Badge";
+import ProjectImage from "@/components/ProjectImage";
 import { getProyekById } from "@/lib/proyek";
 
 interface DetailProyekProps {
@@ -64,6 +65,12 @@ export default async function DetailProyekPage({
             </div>
             <Badge label={proyek.kategori} />
           </div>
+
+          <ProjectImage
+            src={proyek.imageUrl}
+            alt={`Gambar proyek ${proyek.judul}`}
+            className="project-detail-image"
+          />
 
           <div className="case-study-grid">
             <section className="case-study-overview">

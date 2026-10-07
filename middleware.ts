@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { ADMIN_USER_ID } from "@/lib/admin";
 
 export async function middleware(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -32,7 +33,7 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!isLoginPage && !user) {
+  if (!isLoginPage && (!user || user.id !== ADMIN_USER_ID)) {
     return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 

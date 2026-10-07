@@ -10,6 +10,7 @@ interface SupabaseProyekRow {
   teknologi: string[] | string;
   tautan: string | null;
   label_tautan: string | null;
+  image_path: string | null;
 }
 
 function normalizeTechnologies(value: SupabaseProyekRow["teknologi"]) {
@@ -45,6 +46,9 @@ function mapSupabaseProject(row: SupabaseProyekRow): ProyekItem {
     teknologi: normalizeTechnologies(row.teknologi),
     tautan: row.tautan ?? undefined,
     labelTautan: row.label_tautan ?? undefined,
+    imageUrl: row.image_path
+      ? supabase?.storage.from("project-images").getPublicUrl(row.image_path).data.publicUrl
+      : undefined,
   };
 }
 
@@ -56,7 +60,7 @@ export async function getProyek(): Promise<ProyekItem[]> {
   const { data, error } = await supabase
     .from("proyek")
     .select(
-      "id, judul, kategori, deskripsi_singkat, deskripsi_lengkap, teknologi, tautan, label_tautan",
+      "id, judul, kategori, deskripsi_singkat, deskripsi_lengkap, teknologi, tautan, label_tautan, image_path",
     )
     .order("id", { ascending: true });
 

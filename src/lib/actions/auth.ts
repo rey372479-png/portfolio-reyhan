@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { ADMIN_USER_ID } from "@/lib/admin";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 export async function loginAction(formData: FormData) {
@@ -13,9 +14,15 @@ export async function loginAction(formData: FormData) {
   }
 
   const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-  if (error) {
+  if (error || data.user?.id !== ADMIN_USER_ID) {
+    if (!error && data.user) {
+      const { error: signOutError } = await supabase.auth.signOut({ scope: "global" });
+      if (signOutError) {
+        console.error("Supabase rejected-admin logout failed:", signOutError.message);
+      }
+    }
     redirect("/admin/login?error=Email%20atau%20password%20tidak%20valid");
   }
 
